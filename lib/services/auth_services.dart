@@ -16,7 +16,27 @@ class AuthServices {
       body: body,
     );
     print(response.body);
-    print("i am here");
+    print("iam here");
     return response;
   }
+
+  static Future<http.Response> register(
+      {required String name,required String email, required String password}) async {
+    Map data = {"name": name,"email": email, "password": password};
+
+    var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "register");
+    http.Response response = await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+    print(response.body);
+    print("iam here");
+    return response;
+  }
+
+
+
+
 }

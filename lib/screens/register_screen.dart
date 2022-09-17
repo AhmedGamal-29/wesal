@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
+import 'package:marry_me/screens/users_screen.dart';
 import 'package:marry_me/screens/welcome_screen.dart';
 import 'package:marry_me/components/default_button';
 import 'package:marry_me/components/default_formfield';
+import 'package:http/http.dart' as http;
+import 'package:marry_me/services/auth_services.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   static const id = "register_screen";
@@ -17,9 +23,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
-  var genderController = TextEditingController();
-  var ageController = TextEditingController();
-  var birthController = TextEditingController();
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
@@ -46,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Expanded(
               flex: 1,
               child: SizedBox(
-                child: Image.asset('assets/images/marr.png'),
+                child: Image.asset('assets/images/marryme.jpg'),
               ),
             ),
             Expanded(
@@ -93,6 +96,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         keyboard: TextInputType.emailAddress,
                       ),
                       kDefaultFormField(
+                        label: 'Phone',
+                        controller: phoneController,
+                        prefix: Icons.phone,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Phone must not be Empty';
+                          } else if (value.toString().length < 11) {
+                            return 'Please enter valid phone number';
+                          }
+                          return null;
+                        },
+                        keyboard: TextInputType.phone,
+                      ),
+                      kDefaultFormField(
                         label: 'Password',
                         controller: passwordController,
                         prefix: Icons.lock,
@@ -111,6 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       kDefaultFormField(
                         label: 'Confirm Password',
                         controller: confirmPasswordController,
+                        //isPassword: AppCubit().isConfPassword,
                         validate: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please confirm your password ';
@@ -122,63 +140,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         keyboard: TextInputType.visiblePassword,
                         prefix: Icons.lock,
-                      ),
-                      kDefaultFormField(
-                        label: 'Phone',
-                        controller: phoneController,
-                        prefix: Icons.phone,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Phone must not be Empty';
-                          } else if (value.toString().length < 11) {
-                            return 'Please enter valid phone number';
-                          }
-                          return null;
-                        },
-                        keyboard: TextInputType.phone,
-                      ),
-                      kDefaultFormField(
-                        label: 'Age',
-                        controller: ageController,
-                        prefix: Icons.timeline,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Age must not be Empty';
-                          } else if (value < 18) {
-                            return 'must be older than 18';
-                          }
-                          return null;
-                        },
-                        keyboard: const TextInputType.numberWithOptions(
-                          signed: false,
-                          decimal: false,
-                        ),
-                      ),
-                      kDefaultFormField(
-                        label: 'Gender {male or female}',
-                        controller: genderController,
-                        prefix: Icons.person,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Gender must not be Empty';
-                          } else if (value.toString() != 'male' &&
-                              value.toString() != 'female') {
-                            return 'Please enter male or female only';
-                          }
-                          return null;
-                        },
-                      ),
-                      kDefaultFormField(
-                        label: 'Birth Date (1990-07-03)',
-                        controller: birthController,
-                        prefix: Icons.child_care,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Birth must not be Empty';
-                          }
-                          return null;
-                        },
-                        keyboard: TextInputType.datetime,
+                        /*suffix: AppCubit().suffixConf,
+                              isSuffixPressed: () {
+                                AppCubit().changeConfPasswordVisibility();
+                              }*/
                       ),
                       const SizedBox(
                         height: 30.0,
@@ -190,7 +155,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               label: 'Register',
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  //
+
+                                  registerPressed();
                                 }
                               }),
                           const SizedBox(
@@ -214,4 +180,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  registerPressed() async {
+    http.Response response = await AuthServices.register(
+        name: nameController.text,
+        email: emailController.text, password: passwordController.text);
+    Map response_map = json.decode(response.body);
+    if (response.statusCode == 200) {
+      Navigator.pushNamed(
+          context,
+          UsersScreen.id
+      );
+    }
+  }
+
 }
+

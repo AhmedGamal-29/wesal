@@ -24,19 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   //bool isPassword = AppCubit().isPassword;
 
   @override
   Widget build(BuildContext context) {
-    loginPressed() async {
-      http.Response response = await AuthServices.login(
-          email: emailController.text, password: passwordController.text);
-      Map response_map = json.decode(response.body);
-      if (response.statusCode == 200) {
-        Navigator.pushNamed(context, UsersScreen.id);
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: k2Color,
@@ -52,8 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             Expanded(
               flex: 1,
-              child: SizedBox(
-                child: Image.asset('assets/images/marr.png'),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/marryme.jpg')),
+                ),
               ),
             ),
             Expanded(
@@ -96,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       validate: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        } else if (value.toString().length < 8) {
+                        } else if (value
+                            .toString()
+                            .length < 8) {
                           return 'Your password must be 8 characters or more';
                         }
                         return null;
@@ -124,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 loginPressed();
+
                               }
                             }),
                       ],
@@ -136,5 +135,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  loginPressed() async {
+    http.Response response = await AuthServices.login(
+        email: emailController.text, password: passwordController.text);
+    Map response_map = json.decode(response.body);
+    if (response.statusCode == 200) {
+      Navigator.pushNamed(
+          context,
+          UsersScreen.id
+      );
+    }
   }
 }
