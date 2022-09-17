@@ -1,2 +1,7 @@
-const String base_url = "http://192.168.1.3:8080/api/";
-const Map<String, String> headers = {"Content-Type": "application/json"};
+import 'auth_services.dart';
+const String home_url = "http://192.168.1.6:8080/";
+const String base_url = "http://192.168.1.6:8080/api/";
+ Map<String, String> headers = {"Content-Type": "application/json",
+"Authorization":AuthServices.token,
+};
+

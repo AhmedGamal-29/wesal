@@ -4,6 +4,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/components/default_useritem.dart';
 import 'package:marry_me/models/user.dart';
+import 'package:marry_me/screens/webview_screen.dart';
+import 'dart:io';
+
+import 'package:webview_flutter/webview_flutter.dart';
 
 List<User> users = [
   User(
@@ -47,19 +51,29 @@ class _UsersScreenState extends State<UsersScreen> {
         title: const Text('Users'),
       ),
       backgroundColor: k1Color,
-      body: ListView.separated(
-        itemBuilder: (context, index) => defaultUserItem(users[index]),
-        separatorBuilder: (context, index) => Padding(
-          padding: const EdgeInsetsDirectional.only(
-            start: 20.0,
+      body: Column(
+        children: [
+
+
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) => defaultUserItem(users[index]),
+              separatorBuilder: (context, index) => Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 20.0,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: 1.0,
+                  color: Colors.grey[300],
+                ),
+              ),
+              itemCount: users.length,
+            ),
           ),
-          child: Container(
-            width: double.infinity,
-            height: 1.0,
-            color: Colors.grey[300],
-          ),
-        ),
-        itemCount: users.length,
+          TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => WebViewExample()));}, child: Text("press to go to chatify"))
+        ],
+
       ),
     );
   }
