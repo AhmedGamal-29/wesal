@@ -26,8 +26,15 @@ class AuthServices {
   }
 
   static Future<http.Response> register(
-      {required String name,required String email, required String password}) async {
-    Map data = {"name": name,"email": email, "password": password};
+      {required String name,required String email, required String password,
+      required String confirm_password,required String gender,required String phone,
+        required String date
+
+
+      }) async {
+    Map data = {"name": name,"email": email,"password": password,
+      "password_confirmation": confirm_password,"phone": phone,"gender": gender,
+      "birth_day": date};
 
     var body = jsonEncode(data);
     var url = Uri.parse(base_url + "register");

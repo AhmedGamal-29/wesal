@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         validate: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your age';
-                          } else if (value < 18) {
+                          } else if (false) {
                             return 'You must be older than 18';
                           }
                           return null;
@@ -231,7 +231,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     http.Response response = await AuthServices.register(
         name: nameController.text,
         email: emailController.text,
-        password: passwordController.text);
+        password: passwordController.text,
+      confirm_password: passwordController.text,
+      date: birthdateController.text,
+      gender: genderController.text,
+      phone: phoneController.text
+
+    );
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
       Navigator.pushNamed(context, UsersScreen.id);
