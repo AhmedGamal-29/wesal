@@ -18,7 +18,7 @@ class AuthServices {
       body: body,
     );
     print(response.body);
-    token="Bearer ${json.decode(response.body)['AccessToken']}";
+    token=json.decode(response.body)['AccessToken'];
 
     print("iam here");
     print("$token");
@@ -45,8 +45,8 @@ class AuthServices {
 static Future<http.Response> chatify() async{
 
 
-  var url = Uri.parse(home_url + "register");
-  http.Response response = await http.post(
+  var url = Uri.parse(home_url + "chatify");
+  http.Response response = await http.get(
     url,
     headers: headers,
 

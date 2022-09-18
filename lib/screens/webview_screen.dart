@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:marry_me/services/globals.dart';
 
@@ -11,12 +14,14 @@ import '../services/auth_services.dart';
 
 class WebViewExample extends StatefulWidget {
   static const id = "webview_screen";
+
   @override
   WebViewExampleState createState() => WebViewExampleState();
 }
 
 class WebViewExampleState extends State<WebViewExample> {
  late WebViewController _webViewController;
+
 
   @override
   void initState() {
@@ -31,25 +36,17 @@ class WebViewExampleState extends State<WebViewExample> {
     return Scaffold(
       appBar: AppBar(),
       body: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        zoomEnabled: true,
         onWebViewCreated: (controller){
+          controller.loadUrl( home_url+'chatify',headers:  {'Authorization':'Bearer ${AuthServices.token}'});
           _webViewController=controller;
-
-
-
-        },
-        initialUrl: home_url+'chatify',
-        onPageStarted: (url){
-          Map<String, String> header = {"Content-Type": "application/json",
-            "Authorization":AuthServices.token,
-          };
-         // _webViewController.loadUrl(url,headers: header);
-          _webViewController.loadRequest(WebViewRequest(uri: Uri.parse(home_url+'chatify'),
-              method:WebViewRequestMethod.get,
-          headers: header)
-
-          );
           _webViewController.reload();
+
+
         },
+
+
 
       ),
     );
