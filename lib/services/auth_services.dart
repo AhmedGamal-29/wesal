@@ -4,6 +4,8 @@ import 'package:marry_me/services/globals.dart';
 import 'package:http/http.dart' as http;
 
 class AuthServices {
+  static String token="";
+
   static Future<http.Response> login(
       {required String email, required String password}) async {
     Map data = {"email": email, "password": password};
@@ -16,7 +18,10 @@ class AuthServices {
       body: body,
     );
     print(response.body);
+    token=json.decode(response.body)['AccessToken'];
+
     print("iam here");
+    print("$token");
     return response;
   }
 
@@ -37,6 +42,16 @@ class AuthServices {
   }
 
 
+static Future<http.Response> chatify() async{
 
+
+  var url = Uri.parse(home_url + "chatify");
+  http.Response response = await http.get(
+    url,
+    headers: headers,
+
+  );
+  return response;
+}
 
 }
