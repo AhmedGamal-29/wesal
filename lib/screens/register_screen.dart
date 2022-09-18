@@ -11,7 +11,6 @@ import 'package:marry_me/components/default_formfield';
 import 'package:http/http.dart' as http;
 import 'package:marry_me/services/auth_services.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   static const id = "register_screen";
   const RegisterScreen({super.key});
@@ -26,6 +25,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
+  var birthdateController = TextEditingController();
+  var ageController = TextEditingController();
+  var statusController = TextEditingController();
+  var genderController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -53,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Container(
                 padding: const EdgeInsets.all(20.0),
                 decoration: const BoxDecoration(
@@ -140,10 +143,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         keyboard: TextInputType.visiblePassword,
                         prefix: Icons.lock,
-                        /*suffix: AppCubit().suffixConf,
-                              isSuffixPressed: () {
-                                AppCubit().changeConfPasswordVisibility();
-                              }*/
+                      ),
+                      kDefaultFormField(
+                        label: 'Birth date (DD/MM/YYYY)',
+                        controller: birthdateController,
+                        validate: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your birthdate';
+                          }
+                          return null;
+                        },
+                        prefix: Icons.child_care,
+                      ),
+                      kDefaultFormField(
+                        label: 'Age',
+                        controller: ageController,
+                        validate: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your age';
+                          } else if (value < 18) {
+                            return 'You must be older than 18';
+                          }
+                          return null;
+                        },
+                        prefix: Icons.person,
+                      ),
+                      kDefaultFormField(
+                        label: 'Marital Status',
+                        controller: statusController,
+                        validate: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your marital status';
+                          }
+                          return null;
+                        },
+                        prefix: Icons.family_restroom,
+                      ),
+                      kDefaultFormField(
+                        label: 'Gender {male, female}',
+                        controller: genderController,
+                        validate: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your gender';
+                          } else if (value != 'male' && value != 'female') {
+                            return 'Please make sure of your gender';
+                          }
+                          return null;
+                        },
+                        prefix: Icons.people,
                       ),
                       const SizedBox(
                         height: 30.0,
@@ -155,7 +202,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               label: 'Register',
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-
                                   registerPressed();
                                 }
                               }),
@@ -184,15 +230,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   registerPressed() async {
     http.Response response = await AuthServices.register(
         name: nameController.text,
-        email: emailController.text, password: passwordController.text);
+        email: emailController.text,
+        password: passwordController.text);
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
-      Navigator.pushNamed(
-          context,
-          UsersScreen.id
-      );
+      Navigator.pushNamed(context, UsersScreen.id);
     }
   }
-
 }
-

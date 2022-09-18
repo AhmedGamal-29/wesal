@@ -11,7 +11,7 @@ List<User> users = [
     name: 'Mariam',
     phone: '+201115342559',
     gender: 'female',
-    status: 'married',
+    status: 'single',
     age: 24,
   ),
   User(
@@ -37,6 +37,38 @@ List<User> users = [
     gender: 'female',
     status: 'single',
     age: 19,
+  ),
+  User(
+    id: 5,
+    name: 'Aya',
+    phone: '+2087856136',
+    gender: 'female',
+    status: 'single',
+    age: 19,
+  ),
+  User(
+    id: 2,
+    name: 'Amr',
+    phone: '+201117842559',
+    gender: 'male',
+    status: 'relationship',
+    age: 22,
+  ),
+  User(
+    id: 7,
+    name: 'Aya',
+    phone: '+2087856136',
+    gender: 'female',
+    status: 'single',
+    age: 19,
+  ),
+  User(
+    id: 2,
+    name: 'Amr',
+    phone: '+201117842559',
+    gender: 'male',
+    status: 'relationship',
+    age: 22,
   ),
 ];
 
