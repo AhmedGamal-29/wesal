@@ -39,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             height: 15.0,
           ),
           DefaultTextStyle(
-            style: TextStyle(color: k2Color, fontSize: 40.0),
+            style: TextStyle(color: Colors.white, fontSize: 40.0),
             child: Text('وصال'),
           ),
         ],

@@ -15,18 +15,32 @@ List<User> users = [
     name: 'Mariam',
     phone: '+201115342559',
     gender: 'female',
+    status: 'married',
+    age: 24,
   ),
   User(
     id: 2,
     name: 'Amr',
     phone: '+201117842559',
     gender: 'male',
+    status: 'relationship',
+    age: 22,
   ),
   User(
     id: 3,
     name: 'Ali',
     phone: '+2087856136',
     gender: 'male',
+    status: 'single',
+    age: 20,
+  ),
+  User(
+    id: 4,
+    name: 'Aya',
+    phone: '+2087856136',
+    gender: 'female',
+    status: 'single',
+    age: 19,
   ),
 ];
 

@@ -7,16 +7,21 @@ Widget defaultUserItem(User user) => Padding(
       child: Container(
         height: 100.0,
         child: Card(
-          color: k5Color,
+          color: Colors.white,
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 flex: 1,
                 child: CircleAvatar(
-                    radius: 25.0,
-                    child: Image(
-                      image: AssetImage('assets/images/female.webp'),
-                    )),
+                  radius: 25.0,
+                  child: user.gender == 'male'
+                      ? const Image(
+                          image: AssetImage('assets/images/male.webp'),
+                        )
+                      : const Image(
+                          image: AssetImage('assets/images/female.webp'),
+                        ),
+                ),
               ),
               Expanded(
                 flex: 1,
@@ -31,11 +36,21 @@ Widget defaultUserItem(User user) => Padding(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      user.phone,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '${user.age.toString()} , ',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          user.status,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
