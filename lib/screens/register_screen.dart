@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         name: nameController.text,
         email: emailController.text,
         password: passwordController.text,
-      confirm_password: passwordController.text,
+      confirm_password: confirmPasswordController.text,
       date: birthdateController.text,
       gender: genderController.text,
       phone: phoneController.text

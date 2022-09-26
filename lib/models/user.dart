@@ -9,11 +9,11 @@ class User {
   final int age;
 
   User({
-    required this.id,
-    required this.name,
-    required this.phone,
-    required this.gender,
-    required this.status,
-    required this.age,
+    this.id=0,
+    this.name="",
+    this.phone="",
+     this.gender="",
+     this.status="",
+     this.age=0,
   });
 }

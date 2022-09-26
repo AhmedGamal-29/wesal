@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/models/user.dart';
 
-Widget defaultUserItem(User user) => Padding(
+Widget defaultUserItem(Map<String,dynamic>map) {
+
+
+
+
+  return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 100.0,
@@ -14,7 +19,7 @@ Widget defaultUserItem(User user) => Padding(
                 flex: 1,
                 child: CircleAvatar(
                   radius: 25.0,
-                  child: user.gender == 'male'
+                  child: map['gender'] == 'male'
                       ? const Image(
                           image: AssetImage('assets/images/male.webp'),
                         )
@@ -30,7 +35,7 @@ Widget defaultUserItem(User user) => Padding(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.name,
+                      map['name'].toString(),
                       style: const TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -39,13 +44,13 @@ Widget defaultUserItem(User user) => Padding(
                     Row(
                       children: [
                         Text(
-                          '${user.age.toString()} , ',
+                          '${ map['age'].toString()} , ',
                           style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),
                         Text(
-                          user.status,
+                          map['martial_status'].toString(),
                           style: const TextStyle(
                             color: Colors.grey,
                           ),
@@ -72,9 +77,9 @@ Widget defaultUserItem(User user) => Padding(
           ),
         ),
       ),
-    );
+    );}
 
-Widget defaultrequestUserItem(User user) => Padding(
+Widget defaultrequestUserItem(Map<String,dynamic>map) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 100.0,
@@ -86,7 +91,7 @@ Widget defaultrequestUserItem(User user) => Padding(
                 flex: 1,
                 child: CircleAvatar(
                   radius: 25.0,
-                  child: user.gender == 'male'
+                  child:map['gender'] == 'male'
                       ? const Image(
                           image: AssetImage('assets/images/male.webp'),
                         )
@@ -102,7 +107,7 @@ Widget defaultrequestUserItem(User user) => Padding(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      user.name,
+                     map['name'].toString(),
                       style: const TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -111,13 +116,13 @@ Widget defaultrequestUserItem(User user) => Padding(
                     Row(
                       children: [
                         Text(
-                          '${user.age.toString()} , ',
+                          '${map['age'].toString()} , ',
                           style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),
                         Text(
-                          user.status,
+                          map['martial_status'].toString(),
                           style: const TextStyle(
                             color: Colors.grey,
                           ),

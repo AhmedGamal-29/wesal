@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   webview_flutter: ^3.0.4
   flutter_inappwebview: ^5.4.3+7
+  google_fonts: 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,7 +41,7 @@ dependencies:
   http: ^0.13.5
   dropdown_formfield: ^0.1.4
   searchfield: ^0.7.0
-
+  flutter_svg: ^1.1.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -66,6 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/google_fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -93,3 +95,27 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
+        - asset: fonts/PlayfairDisplay-Italic.ttf
+          style: italic
+        - asset: fonts/PlayfairDisplay-Bold.ttf
+          weight: 700
+        
+    - family: DMSans
+      fonts:
+        - asset: fonts/DMSans-Regular.ttf
+        - asset: fonts/DMSans-Italic.ttf
+          style: italic
+        - asset: fonts/DMSans-Bold.ttf
+          weight: 700
+      
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans-Italic.ttf
+          style: italic
+        - asset: fonts/OpenSans-Bold.ttf
+          weight: 700     

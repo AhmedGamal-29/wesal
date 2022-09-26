@@ -4,6 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/components/default_useritem.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/screens/users_screen.dart';
+import 'package:marry_me/services/api.dart';
+import 'package:marry_me/services/globals.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
 
 class FriendsScreen extends StatefulWidget {
   static const id = "friends_screen";
@@ -27,7 +33,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         ),
       ),
       body: ListView.separated(
-        itemBuilder: (context, index) => defaultUserItem(users[index]),
+        itemBuilder: (context, index) => defaultUserItem(friends[index]),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 20.0,
@@ -38,8 +44,27 @@ class _FriendsScreenState extends State<FriendsScreen> {
             color: Colors.grey[300],
           ),
         ),
-        itemCount: users.length,
+        itemCount: friends.length,
       ),
     );
+
+
+    
   }
+
+
+
+  
+showFriends()async{
+     http.Response response= await ApiCalls.getFriends( );
+var response_json = json.decode(response.body);
+     for(var u in response_json){
+      Map<String,dynamic> map={
+        "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status']
+      };
+      friends.add(map);
+
+     }
+
+}
 }

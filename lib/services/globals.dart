@@ -5,3 +5,5 @@ const String base_url = "http://192.168.1.6:8080/api/";
 "Authorization":AuthServices.token,
 };
 
+List<Map<String,dynamic>> friends=[];
+List<Map<String,dynamic>> requests=[];

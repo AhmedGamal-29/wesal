@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         UsersScreen.id: (context) => const UsersScreen(),
-        SearchScreen.id: (context) => const SearchScreen(),
+        SearchScreen.id: (context) =>  SearchScreen(),
         FriendsScreen.id: (context) => const FriendsScreen(),
         RequestsScreen.id: (context) => const RequestsScreen(),
       },

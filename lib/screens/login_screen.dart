@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/components/default_button';
 import 'package:marry_me/components/default_formfield';
+import 'package:marry_me/screens/search_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 import 'package:marry_me/screens/register_screen.dart';
 import 'package:http/http.dart' as http;
@@ -145,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.pushNamed(
           context,
-          UsersScreen.id
+          SearchScreen.id
       );
     }
   }
