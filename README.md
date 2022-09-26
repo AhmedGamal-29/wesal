@@ -1,16 +1,8 @@
-# marry_me
+# wesal
 
-A new Flutter project.
+It is mobile application to help you get your best match and know all details about your partner.
 
-## Getting Started
+## Tools & Frameworks
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+PHP, Laravel for backend
+Dart, Flutter for mobile application ui
