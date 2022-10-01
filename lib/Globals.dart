@@ -1,0 +1,9 @@
+library flickr_android.globals;
+
+String KUserToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzMzM1Mjg3OSwiZXhwIjoxNjMzNzYzMjc5LCJuYmYiOjE2MzMzNTI4NzksImp0aSI6ImhkRzRGZTBmRkt2YmM1QzkiLCJzdWIiOjExLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.2Bnut9kl_DWqcoW0A7pX_gjseId5-56v7rUtOJyvLMo';
+
+String BaseUrl='http://10.0.2.2:8000';
+
+int userVip=1;
+
+
