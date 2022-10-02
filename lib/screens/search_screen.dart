@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 
 
 import '../models/user.dart';
+import 'home_screen.dart';
 
 class SearchScreen extends StatefulWidget {
  
@@ -40,16 +41,20 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
-        bottomOpacity: 90,
-        backgroundColor: Color(0x52CC9595),
-        elevation: 0,
-        title: const Center(child: Text('Welcome, Ali',
-        style:TextStyle(
-          fontFamily: 'PlayfairDisplay',
-          color: Color(0xff030303)
-
+        leading: IconButton(
+        icon: Icon(Icons.home_rounded,size: 25,),
+        onPressed: (){Navigator.pushNamed(context,HomeScreen.id);},
+      ) ,
+         actions: [
+        IconButton(onPressed: (){}, icon: Icon(
+        Icons.person
         )
+        )
+      ],
+        
+        
+        title:  Center(child: Text('Welcome, Ali',
+       
          )
         ),
         shape: const RoundedRectangleBorder(
@@ -90,8 +95,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: InputDecoration(
                     suffixIcon:IconButton(icon:Icon(Icons.search),
                     onPressed: (){
-
+                      
+                     
+                        searchPressed().then((value) {setState(() {
+                          
+                        });});
+                     
+                     
                     },
+                    
                     
                     
                     ) ,
@@ -101,6 +113,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100.0),
                     ),
+
                   ),
                 
                 )
@@ -142,7 +155,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             Flexible(
               child: ListView.separated(
-                itemBuilder: (context, index) => defaultUserItem(users_found[index]),
+                itemBuilder: (context, index) => defaultUserItem(users_found[index],context),
                 separatorBuilder: (context, index) 
                  
                   => Padding(
@@ -165,12 +178,14 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  searchPressed()async{
+ Future searchPressed()async{
      http.Response response= await ApiCalls.search( );
 var response_json = json.decode(response.body);
      for(var u in response_json){
       Map<String,dynamic> map={
-        "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status']
+        "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status'],
+        "smokey":u['smoky'],"profession":u['profession'],"nationality":u['nationality'],
+        "height":u['height'],"weight":u['weight'],"religion":u['religion'],"id":u['id']
       };
       users_found.add(map);
 
@@ -178,4 +193,5 @@ var response_json = json.decode(response.body);
       
 
   }
+  
 }

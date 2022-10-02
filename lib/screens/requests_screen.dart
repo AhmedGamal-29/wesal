@@ -6,10 +6,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/components/default_useritem.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/screens/users_screen.dart';
+import 'package:marry_me/screens/viewuser_screen.dart';
 import 'package:marry_me/services/api.dart';
 import 'package:http/http.dart' as http;
 
 import '../services/globals.dart';
+import 'home_screen.dart';
 
 class RequestsScreen extends StatefulWidget {
   static const id = "requests_screen";
@@ -27,21 +29,38 @@ class _RequestsScreenState extends State<RequestsScreen> {
     
     super.initState();
     
+    showRequests().then((value){setState(() {
+      
+    });});
+
+    
   }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: k5Color,
+        leading: IconButton(
+        icon: Icon(Icons.home_rounded,size: 25,),
+        onPressed: (){Navigator.pushNamed(context,HomeScreen.id);},
+      ) ,
+         actions: [
+        IconButton(onPressed: (){}, icon: Icon(
+        Icons.person
+        )
+        )
+      ],
+       
         title: const Center(child: Text('Your Requests')),
+        
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),
           ),
         ),
       ),
-      body: ListView.separated(
-        itemBuilder: (context, index) => defaultrequestUserItem(requests[index]),
+      body: requests_recieved.length>0 ? ListView.separated(
+        itemBuilder: (context, index) => defaultrequestUserItem(requests_recieved[index],context),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 20.0,
@@ -52,22 +71,49 @@ class _RequestsScreenState extends State<RequestsScreen> {
             color: Colors.grey[300],
           ),
         ),
-        itemCount: requests.length,
-      ),
+        itemCount: requests_recieved.length,
+      ):Center(child: CircularProgressIndicator()),
+    
     );
   }
 
 
-showRequests()async{
+Future showRequests()async{
+  requests_recieved.clear();
      http.Response response= await ApiCalls.getRequests( );
 var response_json = json.decode(response.body);
-     for(var u in response_json){
+var req_recieved=response_json['requests_received'];
+
+     
+     for(var u in req_recieved){
+      await getUser(id: u['sender_id']).then((value) {
+        print(value);
+        requests_recieved.add(value);
+      });
+      
+
+     }
+
+}
+
+Future<Map<String, dynamic>> getUser({required id})async{
+     http.Response response= await ApiCalls.getUser( id: id);
+var u = json.decode(response.body);
+ Map<String,dynamic> map={
+       "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status'],
+        "smokey":u['smoky'],"profession":u['profession'],"nationality":u['nationality'],
+        "height":u['height'],"weight":u['weight'],"religion":u['religion'],"phone":u['phone']
+      };
+      return map;
+
+     
+     /*for(var u in req_recieved){
       Map<String,dynamic> map={
         "name":u['name'],"age":u['age']
       };
       requests.add(map);
 
-     }
+     }*/
 
 }
 

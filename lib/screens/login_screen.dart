@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/components/default_button';
 import 'package:marry_me/components/default_formfield';
+import 'package:marry_me/screens/requests_screen.dart';
 import 'package:marry_me/screens/search_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 import 'package:marry_me/screens/register_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:marry_me/services/auth_services.dart';
+
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const id = "login_screen";
@@ -32,11 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: k2Color,
-        title: const Text('Login'),
+        
+        title: Center(child: const Text('Login')),
       ),
       resizeToAvoidBottomInset: false,
-      backgroundColor: k1Color,
+      backgroundColor: Colors.blue[50],
       body: Form(
         key: _formKey,
         child: Column(
@@ -49,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/marryme.jpg')),
+                      image: AssetImage('assets/images/marryme.png')),
                 ),
               ),
             ),
@@ -108,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         kDefaultButton(
-                          backgroundColor: k1Color,
+                          backgroundColor: Colors.blue,
                           label: 'Register',
                           onPressed: () {
                             Navigator.pushNamed(context, RegisterScreen.id);
@@ -118,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 20.0,
                         ),
                         kDefaultButton(
-                            backgroundColor: k1Color,
+                            backgroundColor: Colors.blue,
                             label: 'Login',
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
@@ -144,9 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
 
-      Navigator.pushNamed(
+      Navigator.pushReplacementNamed(
           context,
-          SearchScreen.id
+          HomeScreen.id
       );
     }
   }

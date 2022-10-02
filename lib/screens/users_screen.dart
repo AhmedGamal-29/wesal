@@ -7,7 +7,7 @@ import 'package:marry_me/models/user.dart';
 import 'package:marry_me/screens/webview_screen.dart';
 import 'dart:io';
 
-import 'package:webview_flutter/webview_flutter.dart';
+
 
 List<Map<String,String>> users = [
  {
@@ -104,7 +104,7 @@ class _UsersScreenState extends State<UsersScreen> {
 
           Expanded(
             child: ListView.separated(
-              itemBuilder: (context, index) => defaultUserItem(users[index]),
+              itemBuilder: (context, index) => defaultUserItem(users[index],context),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(
                   start: 20.0,

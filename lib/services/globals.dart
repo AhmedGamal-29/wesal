@@ -6,4 +6,5 @@ const String base_url = "http://192.168.1.6:8080/api/";
 };
 
 List<Map<String,dynamic>> friends=[];
-List<Map<String,dynamic>> requests=[];
+List<Map<String,dynamic>> requests_sent=[];
+List<Map<String,dynamic>> requests_recieved=[];

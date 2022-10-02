@@ -9,6 +9,8 @@ import 'package:marry_me/services/globals.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'home_screen.dart';
+
 
 
 class FriendsScreen extends StatefulWidget {
@@ -24,7 +26,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: k5Color,
+        leading: IconButton(onPressed: (){Navigator.pushNamed(context,HomeScreen.id);}, icon: Icon(Icons.home_rounded)),
+         actions: [
+        IconButton(onPressed: (){}, icon: Icon(
+        Icons.person
+        )
+        )
+      ],
+        
         title: const Center(child: Text('Your Friends')),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -33,7 +42,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         ),
       ),
       body: ListView.separated(
-        itemBuilder: (context, index) => defaultUserItem(friends[index]),
+        itemBuilder: (context, index) => defaultUserItem(friends[index],context),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 20.0,

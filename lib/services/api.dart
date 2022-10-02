@@ -12,10 +12,12 @@ class ApiCalls{
 
 print("object");
     var body = jsonEncode(data);
-    var url = Uri.parse(base_url + "searchreq");
+    var url = Uri.parse(base_url + "search");
     http.Response response = await http.post(
       url,
       headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+
       },
      
     );
@@ -52,8 +54,8 @@ static Future<http.Response> getRequests() async {
    // Map data = {"name":name,"age":age,"height" :height,"nationality":nationality,"martial_status":status};
 
    // var body = jsonEncode(data);
-    var url = Uri.parse(base_url + "getAllFriends");
-    http.Response response = await http.post(
+    var url = Uri.parse(base_url + "getAllRequests");
+    http.Response response = await http.get(
       url,
       headers: {"Content-Type": "application/json",
         "Authorization":'Bearer ${AuthServices.token}'
@@ -63,11 +65,38 @@ static Future<http.Response> getRequests() async {
    
 
 
-    print("friends here");
+    print("requests here");
      print(response.body);
 
     return response;
   }
+  static Future<http.Response> getUser(
+    {
+      required id
+    }
+  ) async {
+    Map data = {"id":id};
+
+   // var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "getUser");
+    http.Response response = await http.post(
+      url,
+      body: jsonEncode(data)
+      ,
+      headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+      },
+     
+    );
+   
+
+
+    print("get user here");
+    
+
+    return response;
+  }
+
 
 
 

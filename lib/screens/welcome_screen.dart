@@ -28,12 +28,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: k1Color,
+      color: Colors.blue[50],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Image(
-            image: AssetImage('assets/images/marr.png'),
+            image: AssetImage('assets/images/marryme.png'),
           ),
           SizedBox(
             height: 15.0,
