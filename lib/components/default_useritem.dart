@@ -11,7 +11,7 @@ Widget defaultUserItem(Map<String, dynamic> map, context) {
     padding: const EdgeInsets.all(20.0),
     child: RawMaterialButton(
       onPressed: () {
-        Navigator.pushNamed(context, ViewScreen.id);
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>ViewScreen(user: map)));
       },
       child: Container(
         height: 100.0,
@@ -93,7 +93,7 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, ViewScreen.id);
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>ViewScreen(user: map)));
         },
         child: Container(
           height: 100.0,
@@ -136,7 +136,7 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
                             ),
                           ),
                           Text(
-                            map['status'].toString(),
+                            map['martial_status'].toString(),
                             style: const TextStyle(
                               color: Colors.grey,
                             ),

@@ -52,10 +52,10 @@ class _RequestsScreenState extends State<RequestsScreen> {
           ),
         ),
       ),
-      body: users.length > 0
+      body: requests_recieved.length > 0
           ? ListView.separated(
               itemBuilder: (context, index) =>
-                  defaultrequestUserItem(users[index], context),
+                  defaultrequestUserItem(requests_recieved[index], context),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(
                   start: 20.0,
@@ -66,7 +66,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
                   color: Colors.grey[300],
                 ),
               ),
-              itemCount: users.length,
+              itemCount: requests_recieved.length,
             )
           : Center(child: CircularProgressIndicator()),
     );

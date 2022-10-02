@@ -97,6 +97,30 @@ static Future<http.Response> getRequests() async {
     return response;
   }
 
+static Future<http.Response> getProfile(
+   
+  ) async {
+    
+
+   // var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "profile");
+    http.Response response = await http.get(
+      url,
+     
+    
+      headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+      },
+     
+    );
+   
+
+
+    print("profile here");
+    
+
+    return response;
+  }
 
 
 
