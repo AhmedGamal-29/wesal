@@ -7,74 +7,67 @@ import 'package:marry_me/models/user.dart';
 import 'package:marry_me/screens/webview_screen.dart';
 import 'dart:io';
 
-
-
-List<Map<String,String>> users = [
- {
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    }
-  ,
- {
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
-{
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
- {
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
- {
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
- {
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
-{
-    "id": "1",
-    "name": 'Mariam',
-    "phone": '+201115342559',
-    "gender": 'female',
-    "status": 'single',
-    "age": "24",
-    },
+List<Map<String, String>> users = [
   {
     "id": "1",
     "name": 'Mariam',
     "phone": '+201115342559',
     "gender": 'female',
     "status": 'single',
+    "height": "165",
+    "weight": "70",
+    "smoky": "no",
     "age": "24",
-    },
+    "location": "Mansoura, Egypt",
+  },
+  {
+    "id": "2",
+    "name": 'Ali',
+    "phone": '+201115342559',
+    "gender": 'male',
+    "status": 'single',
+    "height": "173",
+    "weight": "75",
+    "smoky": "no",
+    "age": "24",
+    "location": "Alex, Egypt",
+  },
+  {
+    "id": "3",
+    "name": 'Ahmed',
+    "phone": '+201115342559',
+    "gender": 'male',
+    "status": 'relationship',
+    "height": "175",
+    "weight": "74",
+    "smoky": "yes",
+    "age": "24",
+    "location": "Cairo, Egypt",
+  },
+  {
+    "id": "4",
+    "name": 'Aya',
+    "phone": '+201115342559',
+    "gender": 'female',
+    "status": 'single',
+    "height": "168",
+    "weight": "65",
+    "smoky": "no",
+    "age": "20",
+    "location": "Giza, Egypt",
+  },
+  {
+    "id": "5",
+    "name": 'Mona',
+    "phone": '+201115342559',
+    "gender": 'female',
+    "status": 'single',
+    "height": "173",
+    "weight": "75",
+    "smoky": "no",
+    "age": "22",
+    "location": "Cairo, Egypt",
+  },
 ];
 
 class UsersScreen extends StatefulWidget {
@@ -90,21 +83,17 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: k4Color),
-          onPressed: () => Navigator.of(context).pop(),
+        title: const Center(
+          child: Text('Users'),
         ),
-        backgroundColor: k2Color,
-        title: const Text('Users'),
       ),
-      backgroundColor: k1Color,
+      backgroundColor: Colors.blue[50],
       body: Column(
         children: [
-
-
           Expanded(
             child: ListView.separated(
-              itemBuilder: (context, index) => defaultUserItem(users[index],context),
+              itemBuilder: (context, index) =>
+                  defaultUserItem(users[index], context),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(
                   start: 20.0,
@@ -118,9 +107,7 @@ class _UsersScreenState extends State<UsersScreen> {
               itemCount: users.length,
             ),
           ),
-          TextButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => WebViewExample()));}, child: Text("press to go to chatify"))
         ],
-
       ),
     );
   }

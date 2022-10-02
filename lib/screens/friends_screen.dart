@@ -11,8 +11,6 @@ import 'package:http/http.dart' as http;
 
 import 'home_screen.dart';
 
-
-
 class FriendsScreen extends StatefulWidget {
   static const id = "friends_screen";
   const FriendsScreen({super.key});
@@ -26,14 +24,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Navigator.pushNamed(context,HomeScreen.id);}, icon: Icon(Icons.home_rounded)),
-         actions: [
-        IconButton(onPressed: (){}, icon: Icon(
-        Icons.person
-        )
-        )
-      ],
-        
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, HomeScreen.id);
+            },
+            icon: Icon(Icons.home_rounded)),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
         title: const Center(child: Text('Your Friends')),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -42,7 +38,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         ),
       ),
       body: ListView.separated(
-        itemBuilder: (context, index) => defaultUserItem(friends[index],context),
+        itemBuilder: (context, index) => defaultUserItem(users[index], context),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 20.0,
@@ -53,27 +49,22 @@ class _FriendsScreenState extends State<FriendsScreen> {
             color: Colors.grey[300],
           ),
         ),
-        itemCount: friends.length,
+        itemCount: users.length,
       ),
     );
-
-
-    
   }
 
-
-
-  
-showFriends()async{
-     http.Response response= await ApiCalls.getFriends( );
-var response_json = json.decode(response.body);
-     for(var u in response_json){
-      Map<String,dynamic> map={
-        "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status']
+  showFriends() async {
+    http.Response response = await ApiCalls.getFriends();
+    var response_json = json.decode(response.body);
+    for (var u in response_json) {
+      Map<String, dynamic> map = {
+        "name": u['name'],
+        "age": u['age'],
+        "gender": u['gender'],
+        "martial_status": u['martial_status']
       };
       friends.add(map);
-
-     }
-
-}
+    }
+  }
 }

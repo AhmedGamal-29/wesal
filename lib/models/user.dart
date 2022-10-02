@@ -12,8 +12,8 @@ class User {
     this.id=0,
     this.name="",
     this.phone="",
-     this.gender="",
-     this.status="",
-     this.age=0,
+    this.gender="",
+    this.status="",
+    this.age=0,
   });
 }

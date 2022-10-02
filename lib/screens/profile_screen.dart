@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:marry_me/screens/login_screen.dart';
+import 'package:marry_me/screens/updateprofile_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 
 import 'home_screen.dart';
@@ -19,9 +21,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        icon: Icon(Icons.home_rounded,size: 25,),
-        onPressed: (){Navigator.pushNamed(context,HomeScreen.id);},
-      ) ,
+          icon: Icon(
+            Icons.home_rounded,
+            size: 25,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, HomeScreen.id);
+          },
+        ),
         title: const Text('Your Profile'),
       ),
       body: Center(
@@ -89,18 +96,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             MaterialButton(
               onPressed: () {
-                //Navigate to Update profile
+                Navigator.pushNamed(context, UpdateProfile.id);
               },
-              child: Text(
+              color: Colors.blue,
+              child: const Text(
                 'Update Your Profile',
                 style: TextStyle(color: Colors.white),
               ),
-              color: Colors.blue,
-            )
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
+              color: Colors.red,
+              child: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
     );
-    
   }
 }

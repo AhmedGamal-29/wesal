@@ -35,12 +35,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Image(
             image: AssetImage('assets/images/marryme.png'),
           ),
-          SizedBox(
-            height: 15.0,
-          ),
           DefaultTextStyle(
-            style: TextStyle(color: Colors.white, fontSize: 40.0),
-            child: Text('وصال'),
+            style: TextStyle(color: Colors.blue, fontSize: 40.0),
+            child: Text('Wesal'),
           ),
         ],
       ),

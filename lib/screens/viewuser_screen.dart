@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:marry_me/screens/profile_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 
 import 'home_screen.dart';
 
 class ViewScreen extends StatefulWidget {
-  
-  
-  const ViewScreen({super.key }
-  
-  );
+  const ViewScreen({super.key});
   static const id = "view_screen";
- 
 
   @override
   State<ViewScreen> createState() => _ViewScreenState();
 }
 
 class _ViewScreenState extends State<ViewScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         
-         actions: [
-        IconButton(onPressed: (){}, icon: Icon(
-        Icons.person
-        )
-        )
-      ],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, ProfileScreen.id);
+              },
+              icon: Icon(Icons.person))
+        ],
         title: const Text('User Details'),
       ),
       body: Padding(
@@ -80,7 +75,16 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Age: ${users[1]['phone']}',
+              'Age: ${users[1]['age']}',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Location: ${users[1]['location']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -90,6 +94,33 @@ class _ViewScreenState extends State<ViewScreen> {
             ),
             Text(
               'Status: ${users[1]['status']}',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Height: ${users[1]['height']}',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Weight: ${users[1]['weight']}',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Smoky: ${users[1]['smoky']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),

@@ -11,15 +11,12 @@ import 'package:searchfield/searchfield.dart';
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 import 'package:http/http.dart' as http;
-
 
 import '../models/user.dart';
 import 'home_screen.dart';
 
 class SearchScreen extends StatefulWidget {
- 
   static const id = 'search_screen';
 
   @override
@@ -27,41 +24,38 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-   List<Map<String,dynamic>> users_found=[];
-   @override
+  List<Map<String, dynamic>> users_found = [];
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("enterd");
     //searchPressed();
     print(users_found.length);
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        icon: Icon(Icons.home_rounded,size: 25,),
-        onPressed: (){Navigator.pushNamed(context,HomeScreen.id);},
-      ) ,
-         actions: [
-        IconButton(onPressed: (){}, icon: Icon(
-        Icons.person
-        )
-        )
-      ],
-        
-        
-        title:  Center(child: Text('Welcome, Ali',
-       
-         )
+          icon: Icon(
+            Icons.home_rounded,
+            size: 25,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, HomeScreen.id);
+          },
         ),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+        title: Center(
+            child: Text(
+          'Find Your Partner',
+        )),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),
           ),
-          
         ),
       ),
       body: Padding(
@@ -77,10 +71,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   style: TextStyle(
                       fontFamily: "DMSans",
                       fontSize: 30.0,
-                      
                       fontWeight: FontWeight.bold),
                 ),
-                Image(image:AssetImage("assets/images/avatar.png"),),
+                Image(
+                  image: AssetImage("assets/images/avatar.png"),
+                ),
               ],
             ),
             const SizedBox(
@@ -88,36 +83,26 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             Center(
               child: Container(
-                height: 47,
-                width: 306,
-                child: TextFormField(
-                  
-                  decoration: InputDecoration(
-                    suffixIcon:IconButton(icon:Icon(Icons.search),
-                    onPressed: (){
-                      
-                     
-                        searchPressed().then((value) {setState(() {
-                          
-                        });});
-                     
-                     
-                    },
-                    
-                    
-                    
-                    ) ,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100.0),
+                  height: 47,
+                  width: 306,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          searchPressed().then((value) {
+                            setState(() {});
+                          });
+                        },
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100.0),
+                      ),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-
-                  ),
-                
-                )
-              ),
+                  )),
             ),
             const SizedBox(
               height: 30.0,
@@ -137,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   alignment: Alignment.centerRight,
                   height: 30.0,
                   decoration: BoxDecoration(
-                    color:  const Color(0x106750A4),
+                    color: const Color(0x106750A4),
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Text(
@@ -155,10 +140,9 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             Flexible(
               child: ListView.separated(
-                itemBuilder: (context, index) => defaultUserItem(users_found[index],context),
-                separatorBuilder: (context, index) 
-                 
-                  => Padding(
+                itemBuilder: (context, index) =>
+                    defaultUserItem(users_found[index], context),
+                separatorBuilder: (context, index) => Padding(
                   padding: const EdgeInsetsDirectional.only(
                     start: 20.0,
                   ),
@@ -174,24 +158,27 @@ class _SearchScreenState extends State<SearchScreen> {
           ],
         ),
       ),
-      
     );
   }
 
- Future searchPressed()async{
-     http.Response response= await ApiCalls.search( );
-var response_json = json.decode(response.body);
-     for(var u in response_json){
-      Map<String,dynamic> map={
-        "name":u['name'],"age":u['age'],"gender":u['gender'],"martial_status":u['martial_status'],
-        "smokey":u['smoky'],"profession":u['profession'],"nationality":u['nationality'],
-        "height":u['height'],"weight":u['weight'],"religion":u['religion'],"id":u['id']
+  Future searchPressed() async {
+    http.Response response = await ApiCalls.search();
+    var response_json = json.decode(response.body);
+    for (var u in response_json) {
+      Map<String, dynamic> map = {
+        "name": u['name'],
+        "age": u['age'],
+        "gender": u['gender'],
+        "martial_status": u['martial_status'],
+        "smokey": u['smoky'],
+        "profession": u['profession'],
+        "nationality": u['nationality'],
+        "height": u['height'],
+        "weight": u['weight'],
+        "religion": u['religion'],
+        "id": u['id']
       };
       users_found.add(map);
-
-     }
-      
-
+    }
   }
-  
 }

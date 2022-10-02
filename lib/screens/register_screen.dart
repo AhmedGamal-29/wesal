@@ -35,15 +35,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: k4Color),
-          onPressed: () => Navigator.of(context).pop(),
+        title: const Center(
+          child: Text('Register'),
         ),
-        backgroundColor: k2Color,
-        title: const Text('Register'),
       ),
       resizeToAvoidBottomInset: false,
-      backgroundColor: k1Color,
+      backgroundColor: Colors.blue[50],
       body: Form(
         key: _formKey,
         child: Column(
@@ -52,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Expanded(
               flex: 1,
               child: SizedBox(
-                child: Image.asset('assets/images/marryme.jpg'),
+                child: Image.asset('assets/images/marryme.png'),
               ),
             ),
             Expanded(
@@ -161,8 +158,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         validate: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your age';
-                          } else if (false) {
-                            return 'You must be older than 18';
                           }
                           return null;
                         },
@@ -196,7 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 30.0,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           kDefaultButton(
                               label: 'Register',
@@ -232,12 +227,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         name: nameController.text,
         email: emailController.text,
         password: passwordController.text,
-      confirm_password: confirmPasswordController.text,
-      date: birthdateController.text,
-      gender: genderController.text,
-      phone: phoneController.text
-
-    );
+        confirm_password: confirmPasswordController.text,
+        date: birthdateController.text,
+        gender: genderController.text,
+        phone: phoneController.text);
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
       Navigator.pushNamed(context, UsersScreen.id);
