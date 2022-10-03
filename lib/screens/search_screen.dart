@@ -165,11 +165,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future searchPressed() async {
+    users_found.clear();
     http.Response response = await ApiCalls.search(name: search_controller.text);
     var response_json = json.decode(response.body);
     for (var u in response_json) {
       Map<String, dynamic> map = {
         "name": u['name'],
+        "phone": u['phone'],
         "age": u['age'],
         "gender": u['gender'],
         "martial_status": u['martial_status'],

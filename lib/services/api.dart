@@ -15,6 +15,7 @@ print("object");
     var url = Uri.parse(base_url + "search");
     http.Response response = await http.post(
       url,
+      body: body,
       headers: {"Content-Type": "application/json",
         "Authorization":'Bearer ${AuthServices.token}'
 
@@ -123,7 +124,27 @@ static Future<http.Response> getProfile(
   }
 
 
+ static Future<http.Response> decision(
+      {required int sender,required int replay
 
+
+      }) async {
+    Map data = {"sender": sender,"replay": replay};
+
+    var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "decision");
+    http.Response response = await http.post(
+      url, 
+      body: body,
+      headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+      },
+    
+    );
+    print(response.body);
+    print("decision");
+    return response;
+  }
 
 
 

@@ -21,6 +21,14 @@ class FriendsScreen extends StatefulWidget {
 
 class _FriendsScreenState extends State<FriendsScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+      showFriends().then((value) {
+      setState(() {});
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +46,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         ),
       ),
       body: ListView.separated(
-        itemBuilder: (context, index) => defaultUserItem(users[index], context),
+        itemBuilder: (context, index) => defaultUserItem(friends[index], context),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 20.0,
@@ -49,22 +57,52 @@ class _FriendsScreenState extends State<FriendsScreen> {
             color: Colors.grey[300],
           ),
         ),
-        itemCount: users.length,
+        itemCount: friends.length,
       ),
     );
   }
 
-  showFriends() async {
-    http.Response response = await ApiCalls.getFriends();
+  Future showFriends() async {
+    friends.clear();
+    http.Response response = await ApiCalls.getRequests();
     var response_json = json.decode(response.body);
-    for (var u in response_json) {
-      Map<String, dynamic> map = {
-        "name": u['name'],
-        "age": u['age'],
-        "gender": u['gender'],
-        "martial_status": u['martial_status']
-      };
-      friends.add(map);
+    var req_recieved = response_json['requests_received'];
+
+    for (var u in req_recieved) {
+      if (u['status']==1){
+      await getUser(id: u['sender_id']).then((value) {
+        print(value);
+        friends.add(value);
+      });
+      }
     }
+  }
+
+  Future<Map<String, dynamic>> getUser({required id}) async {
+    http.Response response = await ApiCalls.getUser(id: id);
+    var u = json.decode(response.body);
+    Map<String, dynamic> map = {
+      "name": u['name'],
+      "age": u['age'],
+      "gender": u['gender'],
+      "martial_status": u['martial_status'],
+      "smokey": u['smoky'],
+      "profession": u['profession'],
+      "nationality": u['nationality'],
+      "height": u['height'],
+      "weight": u['weight'],
+      "religion": u['religion'],
+      "phone": u['phone'],
+      "id":u['id']
+    };
+    return map;
+
+    /*for(var u in req_recieved){
+      Map<String,dynamic> map={
+        "name":u['name'],"age":u['age']
+      };
+      requests.add(map);
+
+     }*/
   }
 }

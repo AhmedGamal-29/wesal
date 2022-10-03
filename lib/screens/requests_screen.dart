@@ -79,10 +79,12 @@ class _RequestsScreenState extends State<RequestsScreen> {
     var req_recieved = response_json['requests_received'];
 
     for (var u in req_recieved) {
+      if (u['status']==0){
       await getUser(id: u['sender_id']).then((value) {
         print(value);
         requests_recieved.add(value);
       });
+      }
     }
   }
 
@@ -100,7 +102,8 @@ class _RequestsScreenState extends State<RequestsScreen> {
       "height": u['height'],
       "weight": u['weight'],
       "religion": u['religion'],
-      "phone": u['phone']
+      "phone": u['phone'],
+      "id":u['id']
     };
     return map;
 
@@ -112,4 +115,16 @@ class _RequestsScreenState extends State<RequestsScreen> {
 
      }*/
   }
+ Future decision(
+  {
+    required sender,
+    required replay
+  }
+ )async{
+ http.Response response = await ApiCalls.decision(sender: sender,replay:replay );
+  var response_body=json.decode(response.body);
+
+ }
+
+
 }
