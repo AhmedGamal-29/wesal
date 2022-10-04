@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/components/default_useritem.dart';
 import 'package:marry_me/constants/const.dart';
+import 'package:marry_me/screens/profile_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 import 'package:marry_me/services/api.dart';
 import 'package:searchfield/searchfield.dart';
@@ -25,6 +26,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<Map<String, dynamic>> users_found = [];
+  var search_controller=TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -47,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Navigator.pushNamed(context, HomeScreen.id);
           },
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+        actions: [IconButton(onPressed: () {Navigator.pushNamed(context, ProfileScreen.id);}, icon: Icon(Icons.person))],
         title: Center(
             child: Text(
           'Find Your Partner',
@@ -86,6 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 47,
                   width: 306,
                   child: TextFormField(
+                    controller: search_controller ,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search),
@@ -162,11 +165,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future searchPressed() async {
-    http.Response response = await ApiCalls.search();
+    users_found.clear();
+    http.Response response = await ApiCalls.search(name: search_controller.text);
     var response_json = json.decode(response.body);
     for (var u in response_json) {
       Map<String, dynamic> map = {
         "name": u['name'],
+        "phone": u['phone'],
         "age": u['age'],
         "gender": u['gender'],
         "martial_status": u['martial_status'],

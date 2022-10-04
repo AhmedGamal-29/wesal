@@ -225,17 +225,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   registerPressed() async {
     http.Response response = await AuthServices.register(
-        name: nameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-        confirm_password: confirmPasswordController.text,
-        date: birthdateController.text,
-        gender: genderController.text,
-        phone: phoneController.text);
-    
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      confirm_password: confirmPasswordController.text,
+      date: birthdateController.text,
+      gender: genderController.text,
+      phone: phoneController.text,
+      status: statusController.text,
+    );
+
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
-      // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, HomeScreen.id);
     }
   }

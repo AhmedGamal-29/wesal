@@ -7,14 +7,19 @@ import 'package:marry_me/screens/users_screen.dart';
 import 'home_screen.dart';
 
 class ViewScreen extends StatefulWidget {
-  const ViewScreen({super.key});
+
   static const id = "view_screen";
+  Map<String,dynamic> user={};
+ ViewScreen({
+  required this.user,
+ });
 
   @override
   State<ViewScreen> createState() => _ViewScreenState();
 }
 
 class _ViewScreenState extends State<ViewScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class _ViewScreenState extends State<ViewScreen> {
           children: [
             CircleAvatar(
               radius: 25.0,
-              child: users[1]['gender'] == 'male'
+              child:widget.user['gender'] == 'male'
                   ? const Image(
                       image: AssetImage('assets/images/male.webp'),
                     )
@@ -48,7 +53,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Name: ${users[1]['name']}',
+              'Name: ${widget.user['name']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -57,7 +62,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Phone: ${users[1]['phone']}',
+              'Phone: ${widget.user['phone']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -66,7 +71,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Gender: ${users[1]['gender']}',
+              'Gender: ${widget.user['gender']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -75,7 +80,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Age: ${users[1]['age']}',
+              'Age: ${widget.user['age']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -84,7 +89,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Location: ${users[1]['location']}',
+              'Location: ${widget.user['location']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -93,7 +98,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Status: ${users[1]['status']}',
+              'Status: ${widget.user['status']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -102,7 +107,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Height: ${users[1]['height']}',
+              'Height: ${widget.user['height']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -111,7 +116,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Weight: ${users[1]['weight']}',
+              'Weight: ${widget.user['weight']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -120,7 +125,7 @@ class _ViewScreenState extends State<ViewScreen> {
               height: 20.0,
             ),
             Text(
-              'Smoky: ${users[1]['smoky']}',
+              'Smoky: ${widget.user['smoky']}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),

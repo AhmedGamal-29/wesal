@@ -71,18 +71,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      "  Search ",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, SearchScreen.id);
+                      },
+                      child: Text(
+                        "  Search ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Icon(
-                      Icons.keyboard_arrow_down_outlined,
+                      Icons.arrow_forward_ios_outlined,
                       color: Colors.pink.shade100,
-                      size: 30.0,
-                      textDirection: TextDirection.rtl,
+                      size: 25.0,
                       semanticLabel: 'Text to announce in accessibility modes',
                     ),
                   ]),

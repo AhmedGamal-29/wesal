@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
 import 'package:marry_me/models/user.dart';
@@ -5,13 +7,16 @@ import 'package:marry_me/screens/webview_screen.dart';
 
 import '../screens/requests_screen.dart';
 import '../screens/viewuser_screen.dart';
+import '../services/api.dart';
+import 'package:http/http.dart' as http;
 
 Widget defaultUserItem(Map<String, dynamic> map, context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: RawMaterialButton(
       onPressed: () {
-        Navigator.pushNamed(context, ViewScreen.id);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ViewScreen(user: map)));
       },
       child: Container(
         height: 100.0,
@@ -55,12 +60,17 @@ Widget defaultUserItem(Map<String, dynamic> map, context) {
                             color: Colors.grey,
                           ),
                         ),
-                        Text(
-                          map['status'].toString(),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
+                        map['martial_status'] != null
+                            ? Text(
+                                map['martial_status'].toString(),
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              )
+                            : Text("unknown",
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                )),
                       ],
                     ),
                   ],
@@ -89,11 +99,14 @@ Widget defaultUserItem(Map<String, dynamic> map, context) {
   );
 }
 
-Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
+Widget defaultrequestUserItem(Map<String, dynamic> map, context,
+        {Function? onAccept, Function? onReject}) =>
+    Padding(
       padding: const EdgeInsets.all(20.0),
       child: RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, ViewScreen.id);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ViewScreen(user: map)));
         },
         child: Container(
           height: 100.0,
@@ -136,7 +149,7 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
                             ),
                           ),
                           Text(
-                            map['status'].toString(),
+                            map['martial_status'].toString(),
                             style: const TextStyle(
                               color: Colors.grey,
                             ),
@@ -158,6 +171,10 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
                         ),
                         onPressed: (() {
                           //request rejected logic
+                          decision(replay: -1, sender: map['id']).then((value) {
+                            Navigator.pushReplacementNamed(
+                                context, RequestsScreen.id);
+                          });
                         }),
                       ),
                       IconButton(
@@ -167,6 +184,10 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
                           color: Colors.greenAccent,
                         ),
                         onPressed: (() {
+                          decision(replay: 1, sender: map['id']).then((value) {
+                            Navigator.pushReplacementNamed(
+                                context, RequestsScreen.id);
+                          });
                           //request accepted logic
                         }),
                       ),
@@ -179,3 +200,9 @@ Widget defaultrequestUserItem(Map<String, dynamic> map, context) => Padding(
         ),
       ),
     );
+
+Future decision({required sender, required replay}) async {
+  http.Response response =
+      await ApiCalls.decision(sender: sender, replay: replay);
+  var response_body = json.decode(response.body);
+}

@@ -26,9 +26,11 @@ class ApiCalls {
     var url = Uri.parse(base_url + "search");
     http.Response response = await http.post(
       url,
+
+      body: body,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ${AuthServices.token}'
+        "Authorization":'Bearer ${AuthServices.token}'
       },
     );
     print(response.body);
@@ -107,4 +109,53 @@ class ApiCalls {
 
     return response;
   }
+  static Future<http.Response> getProfile(
+   
+  ) async {
+    
+
+   // var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "profile");
+    http.Response response = await http.get(
+      url,
+     
+    
+      headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+      },
+     
+    );
+   
+
+
+    print("profile here");
+    
+
+    return response;
+  }
+
+
+ static Future<http.Response> decision(
+      {required int sender,required int replay
+
+
+      }) async {
+    Map data = {"sender": sender,"replay": replay};
+
+    var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "decision");
+    http.Response response = await http.post(
+      url, 
+      body: body,
+      headers: {"Content-Type": "application/json",
+        "Authorization":'Bearer ${AuthServices.token}'
+      },
+    
+    );
+    print(response.body);
+    print("decision");
+    return response;
+  }
+
+
 }

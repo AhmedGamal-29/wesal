@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         FriendsScreen.id: (context) => const FriendsScreen(),
         RequestsScreen.id: (context) => const RequestsScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
-        ViewScreen.id: (context) => const ViewScreen(),
+        ViewScreen.id: (context) => ViewScreen(user: {}),
         ProfileScreen.id: (context) => const ProfileScreen(),
         UpdateProfile.id: (context) => const UpdateProfile()
       },

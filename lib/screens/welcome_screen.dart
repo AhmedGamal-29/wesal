@@ -36,8 +36,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             image: AssetImage('assets/images/marryme.png'),
           ),
           DefaultTextStyle(
-            style: TextStyle(color: Colors.blue, fontSize: 40.0),
-            child: Text('Wesal'),
+            style: TextStyle(color: Colors.blueAccent, fontSize: 40.0),
+            child: Text('Wessal'),
           ),
         ],
       ),

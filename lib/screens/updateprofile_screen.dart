@@ -23,7 +23,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
           icon: const Icon(
             Icons.arrow_back,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(

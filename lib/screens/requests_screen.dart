@@ -1,12 +1,8 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/components/default_useritem.dart';
-import 'package:marry_me/constants/const.dart';
-import 'package:marry_me/screens/users_screen.dart';
-import 'package:marry_me/screens/viewuser_screen.dart';
 import 'package:marry_me/services/api.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,7 +40,13 @@ class _RequestsScreenState extends State<RequestsScreen> {
             Navigator.pushNamed(context, HomeScreen.id);
           },
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, HomeScreen.id);
+              },
+              icon: Icon(Icons.person))
+        ],
         title: const Center(child: Text('Your Requests')),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -52,10 +54,10 @@ class _RequestsScreenState extends State<RequestsScreen> {
           ),
         ),
       ),
-      body: users.length > 0
+      body: requests_recieved.length > 0
           ? ListView.separated(
               itemBuilder: (context, index) =>
-                  defaultrequestUserItem(users[index], context),
+                  defaultrequestUserItem(requests_recieved[index], context),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(
                   start: 20.0,
@@ -66,7 +68,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
                   color: Colors.grey[300],
                 ),
               ),
-              itemCount: users.length,
+              itemCount: requests_recieved.length,
             )
           : Center(child: CircularProgressIndicator()),
     );
@@ -79,10 +81,12 @@ class _RequestsScreenState extends State<RequestsScreen> {
     var req_recieved = response_json['requests_received'];
 
     for (var u in req_recieved) {
-      await getUser(id: u['sender_id']).then((value) {
-        print(value);
-        requests_recieved.add(value);
-      });
+      if (u['status'] == 0) {
+        await getUser(id: u['sender_id']).then((value) {
+          print(value);
+          requests_recieved.add(value);
+        });
+      }
     }
   }
 
@@ -100,7 +104,8 @@ class _RequestsScreenState extends State<RequestsScreen> {
       "height": u['height'],
       "weight": u['weight'],
       "religion": u['religion'],
-      "phone": u['phone']
+      "phone": u['phone'],
+      "id": u['id']
     };
     return map;
 
@@ -111,5 +116,11 @@ class _RequestsScreenState extends State<RequestsScreen> {
       requests.add(map);
 
      }*/
+  }
+
+  Future decision({required sender, required replay}) async {
+    http.Response response =
+        await ApiCalls.decision(sender: sender, replay: replay);
+    var response_body = json.decode(response.body);
   }
 }
