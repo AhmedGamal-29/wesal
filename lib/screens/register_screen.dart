@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:marry_me/constants/const.dart';
+import 'package:marry_me/screens/home_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 import 'package:marry_me/screens/welcome_screen.dart';
 import 'package:marry_me/components/default_button';
@@ -142,7 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefix: Icons.lock,
                       ),
                       kDefaultFormField(
-                        label: 'Birth date (DD/MM/YYYY)',
+                        label: 'Birth date (YYYY/MM/DD)',
                         controller: birthdateController,
                         validate: (value) {
                           if (value == null || value.isEmpty) {
@@ -231,9 +232,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         date: birthdateController.text,
         gender: genderController.text,
         phone: phoneController.text);
+    
     Map response_map = json.decode(response.body);
     if (response.statusCode == 200) {
-      Navigator.pushNamed(context, UsersScreen.id);
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, HomeScreen.id);
     }
   }
 }

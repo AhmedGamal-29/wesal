@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'OpenSans', color: Color(0xffffffffff), fontSize: 20),
         ),
       ),
-      initialRoute: RequestsScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
