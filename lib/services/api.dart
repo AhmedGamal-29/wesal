@@ -26,11 +26,10 @@ class ApiCalls {
     var url = Uri.parse(base_url + "search");
     http.Response response = await http.post(
       url,
-
       body: body,
       headers: {
         "Content-Type": "application/json",
-        "Authorization":'Bearer ${AuthServices.token}'
+        "Authorization": 'Bearer ${AuthServices.token}'
       },
     );
     print(response.body);
@@ -109,53 +108,75 @@ class ApiCalls {
 
     return response;
   }
-  static Future<http.Response> getProfile(
-   
-  ) async {
-    
 
-   // var body = jsonEncode(data);
+  static Future<http.Response> getProfile() async {
+    // var body = jsonEncode(data);
     var url = Uri.parse(base_url + "profile");
     http.Response response = await http.get(
       url,
-     
-    
-      headers: {"Content-Type": "application/json",
-        "Authorization":'Bearer ${AuthServices.token}'
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ${AuthServices.token}'
       },
-     
     );
-   
-
 
     print("profile here");
-    
 
     return response;
   }
 
-
- static Future<http.Response> decision(
-      {required int sender,required int replay
-
-
-      }) async {
-    Map data = {"sender": sender,"replay": replay};
+  static Future<http.Response> decision(
+      {required int sender, required int replay}) async {
+    Map data = {"sender": sender, "replay": replay};
 
     var body = jsonEncode(data);
     var url = Uri.parse(base_url + "decision");
     http.Response response = await http.post(
-      url, 
+      url,
       body: body,
-      headers: {"Content-Type": "application/json",
-        "Authorization":'Bearer ${AuthServices.token}'
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ${AuthServices.token}'
       },
-    
     );
     print(response.body);
     print("decision");
     return response;
   }
 
+  static Future<http.Response> sendRequest({required int recevier}) async {
+    Map data = {"recevier": recevier};
 
+    var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "request");
+    http.Response response = await http.post(
+      url,
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ${AuthServices.token}'
+      },
+    );
+    print(response.body);
+    print("request sent succesfully");
+    return response;
+  }
+
+  static Future<http.Response> blockFriend({required int recevier}) async {
+    Map data = {"reciever_id": recevier};
+
+    var body = jsonEncode(data);
+    var url = Uri.parse(base_url + "blockFriend");
+    http.Response response = await http.post(
+      url,
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ${AuthServices.token}'
+      },
+    );
+    print(response.body);
+    print("block done");
+    return response;
+  }
 }

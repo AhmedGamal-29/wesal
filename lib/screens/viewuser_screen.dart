@@ -1,25 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marry_me/screens/profile_screen.dart';
 import 'package:marry_me/screens/users_screen.dart';
 
+import 'package:http/http.dart' as http;
+import 'package:marry_me/services/api.dart';
+
 import 'home_screen.dart';
 
 class ViewScreen extends StatefulWidget {
-
   static const id = "view_screen";
-  Map<String,dynamic> user={};
- ViewScreen({
-  required this.user,
- });
+  Map<String, dynamic> user = {};
+  ViewScreen({
+    required this.user,
+  });
 
   @override
   State<ViewScreen> createState() => _ViewScreenState();
 }
 
 class _ViewScreenState extends State<ViewScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +44,7 @@ class _ViewScreenState extends State<ViewScreen> {
           children: [
             CircleAvatar(
               radius: 25.0,
-              child:widget.user['gender'] == 'male'
+              child: widget.user['gender'] == 'male'
                   ? const Image(
                       image: AssetImage('assets/images/male.webp'),
                     )
@@ -139,6 +142,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 MaterialButton(
                   onPressed: () {
                     //request logic
+                    request(recevier: widget.user['id']);
                   },
                   color: Colors.green,
                   child: const Text('Send a request'),
@@ -146,6 +150,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 MaterialButton(
                   onPressed: () {
                     //block logic
+                    block(recevier: widget.user['id']);
                   },
                   color: Colors.red,
                   child: const Text('Block this user'),
@@ -156,5 +161,15 @@ class _ViewScreenState extends State<ViewScreen> {
         ),
       ),
     );
+  }
+
+  Future request({required recevier}) async {
+    http.Response response = await ApiCalls.sendRequest(recevier: recevier);
+    var response_body = json.decode(response.body);
+  }
+
+  Future block({required recevier}) async {
+    http.Response response = await ApiCalls.blockFriend(recevier: recevier);
+    var response_body = json.decode(response.body);
   }
 }
